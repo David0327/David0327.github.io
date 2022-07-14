@@ -67,6 +67,8 @@
 			var positionX = 0;
 			var points = 0;
 			var speed = 10;
+
+			
 			
 			/* 
 			This Function will be called 20 times/second. Each time it is called,
@@ -74,15 +76,13 @@
 			turn it around! 
 			*/
 			function update() {
+				// Your code will increse positionX by 10 here
 				positionX = positionX + 10;
 				moveBoxTo(positionX);
 
-				var speed = 10; 
+			}
 
-				
-
-			};
-
+			
 			/* 
 			This Function will be called each time the box is clicked. Each time it is called,
 			it should increase the points total, increase the speed, and move the box to
@@ -97,8 +97,9 @@
 
 				}
 				if (speed <= 0) {
-					speed = speed - 3;
+					speed = speed -3;
 				}
+				
 				var colorStr = "rgb(120, 25, 50)";
 				box.css("background-color", colorStr);
 
