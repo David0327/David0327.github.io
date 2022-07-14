@@ -14,7 +14,6 @@ var init = function (window) {
 
         window.opspark.game = {};
         var game = window.opspark.game;
-        var circles;
 
         ////////////////////////////////////////////////////////////
         ///////////////// PROGRAM SETUP ////////////////////////////
@@ -31,7 +30,7 @@ var init = function (window) {
 
         function drawCircle() {
             circle = draw.randomCircleInArea(canvas, true, true, '#999', 2);
-            physikz.addRandomVelocity(circle, canvas);
+            physikz.addRandomVelocity(circle, canvas, 35, 40);
             view.addChild(circle);
             circles.push(circle);
 
@@ -41,6 +40,7 @@ var init = function (window) {
 
 
         // TODO 3 / 7 : Call the drawCircle() function 
+
 
 
         var counter = 0;
@@ -63,12 +63,25 @@ var init = function (window) {
         */
         function update() {
             // TODO 4 : Update the circle's position //
+            // physikz.updatePosition(circles[1]);
+            // physikz.updatePosition(circles[2]);
+            // physikz.updatePosition(circles[3]);
+            // physikz.updatePosition(circles[4]);
+            // physikz.updatePosition(circles[5]);
 
+            for (var i = 0; i < circles.length; i++) {
+                var eachCircle = circles[i];
 
+                physikz.updatePosition(eachCircle);
+                game.checkCirclePosition(eachCircle);
+            }
 
             // TODO 5 / 10 : Call game.checkCirclePosition() on your circles.
-
-
+            //game.checkCirclePosition(circles[1]);
+            //game.checkCirclePosition(circles[2]);
+            // game.checkCirclePosition(circles[3]);
+            // game.checkCirclePosition(circles[4]);
+            // game.checkCirclePosition(circles[5]);
             // TODO 9 : Iterate over the array
 
 
@@ -80,16 +93,24 @@ var init = function (window) {
         it to the opposite side of the screen.
         */
         game.checkCirclePosition = function (circle) {
-
-            // if the circle has gone past the RIGHT side of the screen then place it on the LEFT
+            //console.log({circle})
+            // if the circle has gone past the RIGHT side of the screen then assign it to be on the LEFT
             if (circle.x > canvas.width) {
                 circle.x = 0;
             }
 
             // TODO 6 : YOUR CODE STARTS HERE //////////////////////
+            // if the circle has gone past the LEFT side of the screen then assign it to be on the RIGHT
+            if (circle.x < 0) {
+                circle.x = canvas.width;
+            }
+            if (circle.y > canvas.height) {
+                circle.y = 0;
 
-
-
+            }
+            if (circle.y < 0) {
+                circle.y = canvas.height;
+            }
             // YOUR TODO 6 CODE ENDS HERE //////////////////////////
         }
 
@@ -102,7 +123,8 @@ var init = function (window) {
 
         game.circle = circle;
         game.drawCircle = drawCircle;
-
+        game.circles = circles;
+        game.update = update;
 
         app.addUpdateable(window.opspark.game);
     }
